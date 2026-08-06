@@ -56,6 +56,8 @@ $unassignedCount = $students->where('class_id', null)->count() + $students->wher
             </tbody>
         </table>
     </div>
-    {{ $students->withQueryString()->links() }}
+    <div class="mt-3">
+        {{ $students->withQueryString()->links('vendor.pagination.bootstrap-5-no-icons') }}
+    </div>
 </div></div>
 @endsection

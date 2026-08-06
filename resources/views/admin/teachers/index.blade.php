@@ -29,5 +29,8 @@
             @endforeach
         </tbody>
     </table>
-</div></div>
+    </div>
+    <div class="mt-3">
+        {{ $teachers->withQueryString()->links('vendor.pagination.bootstrap-5-no-icons') }}
+    </div>
 @endsection

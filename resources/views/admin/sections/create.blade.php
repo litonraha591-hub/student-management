@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', 'Add Shift')
-@section('page-title', 'Add Shift')
+@section('title', 'Add Section')
+@section('page-title', 'Add Section')
 @section('content')
 <div class="card shadow-sm border-0"><div class="card-body">
     <form method="POST" action="{{ route('admin.sections.store') }}">@csrf
