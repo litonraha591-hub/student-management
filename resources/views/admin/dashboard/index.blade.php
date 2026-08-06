@@ -57,6 +57,33 @@
     </div>
 </div>
 
+<div class="row g-4 mb-4">
+    <div class="col-xl-4 col-md-6">
+        <div class="card card-stat shadow-sm">
+            <div class="d-flex justify-content-between align-items-start">
+                <div><div class="number text-success">{{ $todayPresent }}</div><div class="label">Present Today</div></div>
+                <div class="icon" style="background: #ecfdf5;"><i class="fas fa-user-check text-success"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-6">
+        <div class="card card-stat shadow-sm">
+            <div class="d-flex justify-content-between align-items-start">
+                <div><div class="number text-danger">{{ $todayAbsent }}</div><div class="label">Absent Today</div></div>
+                <div class="icon" style="background: #fef2f2;"><i class="fas fa-user-times text-danger"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-6">
+        <div class="card card-stat shadow-sm">
+            <div class="d-flex justify-content-between align-items-start">
+                <div><div class="number text-warning">{{ $todayLate }}</div><div class="label">Late Today</div></div>
+                <div class="icon" style="background: #fffbeb;"><i class="fas fa-clock text-warning"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row g-4">
     <div class="col-xl-8">
         <div class="card shadow-sm border-0">

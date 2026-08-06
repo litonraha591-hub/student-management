@@ -15,7 +15,7 @@
                 @foreach($classes as $class)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $class->name }}</td>
+                    <!-- <td>{{ $class->name }}</td> -->
                     <td>{{ $class->department?->name ?? '-' }}</td>
                     <td>{{ $class->sections->count() }}</td>
                     <td>{{ $class->subjects->count() }}</td>

@@ -10,6 +10,7 @@ use App\Models\Section;
 use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
@@ -85,6 +86,33 @@ class ReportController extends Controller
             'partial' => $payments->where('status', 'partial')->sum('amount_paid'),
         ];
 
-        return view('admin.reports.fee', compact('payments', 'summary'));
+        // Monthly collection (YYYY-MM => collected amount)
+        $monthlyCollections = FeePayment::whereNotNull('payment_date')
+            ->select(DB::raw("DATE_FORMAT(payment_date, '%Y-%m') as month"), DB::raw('SUM(amount_paid) as collected'))
+            ->groupBy('month')
+            ->orderBy('month')
+            ->pluck('collected', 'month')
+            ->toArray();
+
+        // Class-wise collection (class name => collected amount)
+        $classCollections = DB::table('fee_payments')
+            ->join('fees', 'fee_payments.fee_id', '=', 'fees.id')
+            ->join('classes', 'fees.class_id', '=', 'classes.id')
+            ->select('classes.name as class_name', DB::raw('SUM(fee_payments.amount_paid) as collected'))
+            ->groupBy('classes.id', 'classes.name')
+            ->orderBy('classes.name')
+            ->pluck('collected', 'class_name')
+            ->toArray();
+
+        // Fee type / fee name breakdown (fee name => collected amount)
+        $feeTypeCollections = DB::table('fees')
+            ->join('fee_payments', 'fees.id', '=', 'fee_payments.fee_id')
+            ->select('fees.name as fee_name', DB::raw('SUM(fee_payments.amount_paid) as collected'))
+            ->groupBy('fees.id', 'fees.name')
+            ->orderBy('fees.name')
+            ->pluck('collected', 'fee_name')
+            ->toArray();
+
+        return view('admin.reports.fee', compact('payments', 'summary', 'monthlyCollections', 'classCollections', 'feeTypeCollections'));
     }
 }
